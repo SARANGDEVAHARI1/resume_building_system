@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ name }} - Resume{% endblock %}
+
+{% block content %}
+<header class="resume-header">
+    <div class="profile-info">
+        <h1>
+            <!-- Show emoji based on gender -->
+            {% if gender == 'male' %}
+                👦
+            {% elif gender == 'female' %}
+                👩
+            {% else %}
+                🧑
+            {% endif %}
+            {{ name }}
+        </h1>
+        <p class="subtitle">{{ title }} (Age: {{ age }})</p>
+        <p class="email">Email: <a href="mailto:{{ email }}">{{ email }}</a></p>
+    </div>
+</header>
+
+<section class="section">
+    <h2>Technical Skills</h2>
+    <ul class="skills-list">
+        {% for skill in skills %}
+            <li class="skill-item">{{ skill }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% if experience %}
+<section class="section">
+    <h2>Work Experience</h2>
+    {% for job in experience %}
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="role">{{ job.role }}</span>
+                <span class="period">{{ job.period }}</span>
+            </div>
+            <div class="company">{{ job.company }}</div>
+            <p class="description">{{ job.description }}</p>
+        </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<section class="section">
+    <h2>Education</h2>
+    <div class="education-item">
+        <div class="item-header">
+            <span class="degree">{{ education.degree }}</span>
+            <span class="period">{{ education.period }}</span>
+        </div>
+        <div class="school">{{ education.school }}</div>
+        {% if education.details %}
+            <p class="details">{{ education.details }}</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
